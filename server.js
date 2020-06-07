@@ -44,7 +44,7 @@ app.use(session({
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
-app.use('/feedback', feedbackRouter);
+app.use('api/feeback', feedbackRouter);
 
 
 
