@@ -23,7 +23,7 @@ function LandingPage(isLoggedIn) {
     })
 
     useEffect(() => {
-        axios.get(document.location.host + '/cart/')
+        axios.get(document.location.origin + '/cart/')
             .then(response => {
                 setProduct(response.data)
                 console.log(response.data)

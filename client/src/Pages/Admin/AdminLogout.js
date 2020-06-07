@@ -13,7 +13,7 @@ const AdminLogout = ({isLoggedIn,logOut}) => {
                             logoutAlert(logOut)
                         ) :
                         (
-                                    window.location = "http://localhost:3000/admin"
+                                    window.location = document.location.origin + "/admin"
                         )
                 }
 
@@ -34,7 +34,7 @@ const logoutAlert = (logOut) =>{
         if (result.isConfirmed) {
             logOut()
         } else {
-            window.location = "http://localhost:3000/admin";
+            window.location = document.location.origin + "/admin";
         }
     })
 }

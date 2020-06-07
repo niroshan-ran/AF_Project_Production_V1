@@ -40,7 +40,7 @@ export default class CreateProduct extends Component {
 
     componentDidMount() {
 
-        axios.get(document.location.host + "/category/")
+        axios.get(document.location.origin + "/category/")
             .then(response => {
                 if (response.data.length >0){
                     this.setState({
@@ -154,7 +154,7 @@ export default class CreateProduct extends Component {
 
                 console.log(product);
 
-                axios.post(document.location.host + "/product/add", product)
+                axios.post(document.location.origin + "/product/add", product)
                     .then(res => {
                         console.log(res.data);
                         this.confirmAlart();

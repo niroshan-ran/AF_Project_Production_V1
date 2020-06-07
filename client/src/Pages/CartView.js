@@ -36,7 +36,7 @@ let CartView = (props) => {
         setUserID(props.match.params.user);
         console.log("This is user id :" + props.match.params.user);
         setLoad(true);
-        axios.get(document.location.host + '/cart/')
+        axios.get(document.location.origin + '/cart/')
             .then(response => {
                 setLoad(false);
                 setProducts(response.data);

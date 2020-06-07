@@ -70,7 +70,7 @@ class Feedback extends Component {
     onDeleteFeedback = (id) => {
 
 
-        fetch(document.location.host + '/api/feedback/delete/' + id, {
+        fetch(document.location.origin + '/api/feedback/delete/' + id, {
             method: 'DELETE'
         }).then((response) => {
 
@@ -198,7 +198,7 @@ class Feedback extends Component {
 
         if (localStorage.getItem('userEmail')) {
 
-            let url = document.location.host + "/api/feedback/user/" + localStorage.getItem('userEmail');
+            let url = document.location.origin + "/api/feedback/user/" + localStorage.getItem('userEmail');
 
             fetch(url).then(response => response.json())
                 .then(json => this.setState({
@@ -232,7 +232,7 @@ class Feedback extends Component {
 
         }
 
-        let url2 = document.location.host + "/api/feedback/";
+        let url2 = document.location.origin + "/api/feedback/";
 
         fetch(url2).then(response => response.json())
             .then(json => this.setState({
@@ -387,7 +387,7 @@ class Feedback extends Component {
 
         console.log(this.state.feedback);
 
-        fetch(document.location.host + "/api/feedback/add", {
+        fetch(document.location.origin + "/api/feedback/add", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

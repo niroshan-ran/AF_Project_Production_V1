@@ -40,7 +40,7 @@ export default class CreateCategory extends Component {
     }
 
     getData = () =>{
-        axios.get(document.location.host + "/category/")
+        axios.get(document.location.origin + "/category/")
             .then(response =>{
                 this.setState({
                     category:response.data
@@ -88,7 +88,7 @@ export default class CreateCategory extends Component {
 
         console.log(category);
 
-        axios.post(document.location.host + '/category/add', category)
+        axios.post(document.location.origin + '/category/add', category)
             .then(res => {
                 console.log(res.data);
 
@@ -119,7 +119,7 @@ export default class CreateCategory extends Component {
             if (result.value) {
 
                 //delete category
-                axios.delete(document.location.host + "/category/"+id)
+                axios.delete(document.location.origin + "/category/"+id)
                     .then(res=>{
                         console.log(res.data)
                         this.setState({
@@ -159,7 +159,7 @@ export default class CreateCategory extends Component {
                 cdescription : this.state.cdescription,
             }
 
-            axios.post(document.location.host + "/category/update/"+this.state.selectCategory._id ,category )
+            axios.post(document.location.origin + "/category/update/"+this.state.selectCategory._id ,category )
                 .then(res =>{
                     console.log(res);
                     this.getData();

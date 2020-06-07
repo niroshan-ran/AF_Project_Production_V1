@@ -79,7 +79,7 @@ class Feedback extends Component {
     }
 
     fetchData = () => {
-        const url = document.location.host + "/api/feedback/";
+        const url = document.location.origin + "/api/feedback/";
         fetch(url).then(response => response.json())
             .then(json => this.setState({
                 feedbackList: json,
@@ -159,7 +159,7 @@ class Feedback extends Component {
         console.log(obj.newFeedback)
 
 
-        fetch(document.location.host + "/api/feedback/" + obj.newFeedback._id, {
+        fetch(document.location.origin + "/api/feedback/" + obj.newFeedback._id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -219,7 +219,7 @@ class Feedback extends Component {
             endDate = new Date();
         }
 
-        fetch(document.location.host + "/api/feedback/search/" + startDate + "/" + endDate, {
+        fetch(document.location.origin + "/api/feedback/search/" + startDate + "/" + endDate, {
             method: 'GET'
         }).then(response => response.json())
             .then(json => this.setState({

@@ -23,7 +23,7 @@ export const loadUser1 = () => {
         setToken(localStorage.getItem('token'));
     }
 
-    const response = axios.get(document.location.host + '/api/users');
+    const response = axios.get(document.location.origin + '/api/users');
 
     return response;
 
@@ -36,7 +36,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(document.location.host + '/api/users');
+        const response = await axios.get(document.location.origin + '/api/users');
 
         const position = response.data.position;
         //console.log(position);
@@ -66,7 +66,7 @@ export const loadSM = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(document.location.host + '/api/store_manager');
+        const response = await axios.get(document.location.origin + '/api/store_manager');
 
         dispatch({
             type:LOAD_SM,
@@ -94,7 +94,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
         }
 
         const body = JSON.stringify({firstName, lastName,  email, password})
-        const response = await axios.post(document.location.host + '/api/users/register',body,config);
+        const response = await axios.post(document.location.origin + '/api/users/register',body,config);
 
         dispatch({
             type:REGISTER_SUCCESS,
@@ -123,7 +123,7 @@ export const registerSM = (firstName, lastName, position, email, password) => as
         }
 
         const body = JSON.stringify({firstName, lastName, position, email, password})
-        const response = await axios.post(document.location.host + '/api/store_manager/sm_register',body,config);
+        const response = await axios.post(document.location.origin + '/api/store_manager/sm_register',body,config);
 
         dispatch({
             type:REGISTER_SUCCESS,
@@ -172,7 +172,7 @@ export const loginUser = (email, password) => async dispatch => {
         }
 
         const body = JSON.stringify({email, password})
-        const response1 = await axios.post(document.location.host + '/api/users/login', body, config);
+        const response1 = await axios.post(document.location.origin + '/api/users/login', body, config);
 
         if(response1.data !== undefined){
             loggedAlert();
@@ -207,7 +207,7 @@ export const getPosition = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(document.location.host + '/api/users')
+        const response = await axios.get(document.location.origin + '/api/users')
             .then(res => console.log(res.data.position));
         dispatch({
             type:LOAD_USER,
@@ -235,7 +235,7 @@ export const loginSM = (email, password) => async dispatch => {
 
         }
         const body = JSON.stringify({email, password})
-        const response2 = await axios.post(document.location.host + '/api/store_manager/sm_login', body, config);
+        const response2 = await axios.post(document.location.origin + '/api/store_manager/sm_login', body, config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response2.data
@@ -251,7 +251,7 @@ export const loginSM = (email, password) => async dispatch => {
 };
 
 export function addToCart(_id){
-    const request = axios.post(`http://localhost:4001/api/cart/addToCart?productId=${_id}`)
+    const request = axios.post(document.location.origin + `/api/cart/addToCart?productId=${_id}`)
         .then(response => response.data);
 
     return{
@@ -261,7 +261,7 @@ export function addToCart(_id){
 }
 
 export function auth() {
-    const request = axios.get(`http://localhost:4001/api/cart/auth`)
+    const request = axios.get(document.location.origin +`/api/cart/auth`)
         .then(response => response.data);
 
     return {
@@ -326,5 +326,5 @@ export const logOut = () => async dispatch =>{
         type: LOG_OUT,
     });
 
-    window.location = "http://localhost:3000/";
+    window.location = document.location.origin;
 }

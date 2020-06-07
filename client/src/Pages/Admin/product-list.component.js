@@ -39,7 +39,7 @@ export default class ProductList extends Component {
 
     componentDidMount() {
 
-        axios.get(document.location.host + "/product/")
+        axios.get(document.location.origin + "/product/")
             .then(response => {
                 this.setState({
                     product : response.data,
@@ -66,7 +66,7 @@ export default class ProductList extends Component {
             if (result.value) {
 
                 //delete product
-                axios.delete(document.location.host + "/product/"+id)
+                axios.delete(document.location.origin + "/product/"+id)
                     .then(res=>{
                         console.log(res.data);
                         this.setState({
