@@ -13,7 +13,7 @@ const LogedinHeader = ({isLoggedIn, logOut, myCart, totQuantity, userID}) => {
     const [posts, setPosts] = useState([]);
 
     const doSom = () => {
-        axios.get("http://localhost:4001/category/")
+        axios.get(document.location.host + "/category/")
             .then(response => {
                 setPosts(response.data);
             })

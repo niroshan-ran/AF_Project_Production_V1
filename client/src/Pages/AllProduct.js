@@ -18,7 +18,7 @@ class AllProduct extends Component {
 
     componentDidMount() {
 
-        axios.get('http://localhost:4001/product/')
+        axios.get(document.location.host + '/product/')
             .then(response => {
                 this.setState({
                     products :response.data,

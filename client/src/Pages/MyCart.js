@@ -69,7 +69,7 @@ export default class MyCart extends Component {
 
         console.log(cart);
 
-        axios.post('http://localhost:4001/cart/add', cart)
+        axios.post(document.location.host + '/cart/add', cart)
             .then(res => {
                     console.log(res.data);
                     this.confirmAlart();
