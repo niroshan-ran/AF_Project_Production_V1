@@ -79,7 +79,7 @@ class Feedback extends Component {
     }
 
     fetchData = () => {
-        const url = "http://localhost:4001api/feeback/";
+        const url = "http://localhost:4001/api/feedback/";
         fetch(url).then(response => response.json())
             .then(json => this.setState({
                 feedbackList: json,
@@ -159,7 +159,7 @@ class Feedback extends Component {
         console.log(obj.newFeedback)
 
 
-        fetch("http://localhost:4001api/feeback/" + obj.newFeedback._id, {
+        fetch("http://localhost:4001/api/feedback/" + obj.newFeedback._id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -219,7 +219,7 @@ class Feedback extends Component {
             endDate = new Date();
         }
 
-        fetch("http://localhost:4001api/feeback/search/" + startDate + "/" + endDate, {
+        fetch("http://localhost:4001/api/feedback/search/" + startDate + "/" + endDate, {
             method: 'GET'
         }).then(response => response.json())
             .then(json => this.setState({
