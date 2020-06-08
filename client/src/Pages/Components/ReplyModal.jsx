@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-
-let Button = ReactBootstrap.Button;
-let Modal = ReactBootstrap.Modal;
-let Form = ReactBootstrap.Form;
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 
 class ReplyModal extends Component {
