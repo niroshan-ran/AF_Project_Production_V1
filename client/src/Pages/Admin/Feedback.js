@@ -7,16 +7,17 @@ import ReplyModal from "../Components/ReplyModal";
 import Box from "@material-ui/core/Box";
 import ToastMessage from "../Components/ToastMessage";
 import "../Components/AlertStyles.css";
-import Form from "react-bootstrap/Form";
 import FormControl from "@material-ui/core/FormControl";
 import ArrowIcon from '@material-ui/icons/ArrowUpward';
 import TextField from "@material-ui/core/TextField";
-import Button from "react-bootstrap/Button";
-import CardGroup from "react-bootstrap/CardGroup";
 import Fab from "@material-ui/core/Fab";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+let Form = ReactBootstrap.Form;
+let Button = ReactBootstrap.Button;
+let CardGroup = ReactBootstrap.CardGroup;
 
 
 class Feedback extends Component {

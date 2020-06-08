@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-
 import './AlertStyles.css';
+
+let Button = ReactBootstrap.Button;
+let Modal = ReactBootstrap.Modal;
 
 
 class ConfirmDeleteFeedbackModal extends Component {

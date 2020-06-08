@@ -1,18 +1,20 @@
 import React, {Component} from "react";
-import Form from "react-bootstrap/Form";
 import {makeStyles} from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
 import Rating from "@material-ui/lab/Rating";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import ToastMessage from "./Components/ToastMessage";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./Components/AlertStyles.css";
 import ConfirmDeleteFeedbackModal from "./Components/ConfirmDeleteFeedbackModal";
 import LogedinHeader from "./LogedInHeader";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
+
+let Form = ReactBootstrap.Form;
+let Button = ReactBootstrap.Button;
+let Card = ReactBootstrap.Card;
+let Row = ReactBootstrap.Row;
+let Col = ReactBootstrap.Col;
+let Tabs = ReactBootstrap.Tabs;
+let Tab = ReactBootstrap.Tab;
+
 
 class Feedback extends Component {
 
