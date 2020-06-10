@@ -1,9 +1,8 @@
-import React, {Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
-import {Redirect} from "react-router-dom";
 import FileBase64 from 'react-file-base64';
 import Swal from 'sweetalert2'
-
+import {LOCAL_PATH} from "../../constants/constants";
 
 
 export default class CreateProduct extends Component {
@@ -22,14 +21,14 @@ export default class CreateProduct extends Component {
         // this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            PName : "",
-            PDescription : "",
-            PCategory : "",
-            PBrand : "",
-            PAmount : 0,
-            PPrice : 0,
-            PImage : "",
-            Category : [],
+            PName: "",
+            PDescription: "",
+            PCategory: "",
+            PBrand: "",
+            PAmount: 0,
+            PPrice: 0,
+            PImage: "",
+            Category: [],
             baseImage: "",
             open: false,
             sizeEx: false
@@ -40,9 +39,9 @@ export default class CreateProduct extends Component {
 
     componentDidMount() {
 
-        axios.get(document.location.origin + "/category/")
+        axios.get(LOCAL_PATH + "/category/")
             .then(response => {
-                if (response.data.length >0){
+                if (response.data.length > 0) {
                     this.setState({
                         Category: response.data.map(category => category.cname),
                         PCategory: response.data[0].cname
@@ -51,62 +50,62 @@ export default class CreateProduct extends Component {
             })
     }
 
-    onChangePName(e){
+    onChangePName(e) {
         this.setState({
             PName: e.target.value
         });
     }
 
-    onChangePDescription(e){
+    onChangePDescription(e) {
         this.setState({
             PDescription: e.target.value
         });
     }
 
-    onChangePCategory(e){
+    onChangePCategory(e) {
         this.setState({
             PCategory: e.target.value
         });
     }
 
-    onChangePBrand(e){
+    onChangePBrand(e) {
         this.setState({
             PBrand: e.target.value
         });
     }
 
-    onChangePAmount(e){
+    onChangePAmount(e) {
         this.setState({
             PAmount: e.target.value
         });
     }
 
-    onChangePPrice(e){
+    onChangePPrice(e) {
         this.setState({
             PPrice: e.target.value
         });
     }
 
 
-    getFiles(files){
+    getFiles(files) {
         const fileSize = files.size.match(/\d+/)[0];
-        console.log("size: "+ fileSize);
+        console.log("size: " + fileSize);
 
-        if(fileSize < 5000){
+        if (fileSize < 5000) {
             console.log("size ok");
             this.setState({
                 PImage: files.base64.toString()
             });
-        }else{
+        } else {
             this.setState({
                 sizeEx: true
             })
-            console.log("not ok"+this.state.sizeEx);
+            console.log("not ok" + this.state.sizeEx);
         }
 
     }
 
-    confirmAlart(){
+    confirmAlart() {
         Swal.fire(
             'Good job!',
             'New Product Successfully Added!',
@@ -114,7 +113,7 @@ export default class CreateProduct extends Component {
         )
     }
 
-    filesizeAlart(){
+    filesizeAlart() {
         Swal.fire({
             icon: 'warning',
             title: 'Image is too large!',
@@ -122,7 +121,7 @@ export default class CreateProduct extends Component {
         })
     }
 
-    filemissAlart(){
+    filemissAlart() {
         Swal.fire({
             icon: 'question',
             title: 'Oppss! something missing',
@@ -130,18 +129,18 @@ export default class CreateProduct extends Component {
         })
     }
 
-    onSubmit(e){
+    onSubmit(e) {
 
         e.preventDefault();
-        console.log("file size: "+this.state.sizeEx)
-        if(this.state.sizeEx === true){
+        console.log("file size: " + this.state.sizeEx)
+        if (this.state.sizeEx === true) {
             this.filesizeAlart();
             this.setState({
                 sizeEx: false
             })
-        }else {
-            console.log("image :"+ this.state.PImage)
-            if(this.state.PImage !== ""){
+        } else {
+            console.log("image :" + this.state.PImage)
+            if (this.state.PImage !== "") {
                 const product = {
                     PName: this.state.PName,
                     PDescription: this.state.PDescription,
@@ -154,12 +153,12 @@ export default class CreateProduct extends Component {
 
                 console.log(product);
 
-                axios.post(document.location.origin + "/product/add", product)
+                axios.post(LOCAL_PATH + "/product/add", product)
                     .then(res => {
                         console.log(res.data);
                         this.confirmAlart();
                     });
-            }else{
+            } else {
                 this.filemissAlart();
             }
 
@@ -171,19 +170,19 @@ export default class CreateProduct extends Component {
         return (
             <div>
                 <h1>Create New Product</h1><br/>
-                <form onSubmit={this.onSubmit} >
+                <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Product Category: </label>
                         <select
                             required
-                                className="form-control"
-                                value={this.state.PCategory}
-                                onChange={this.onChangePCategory}>
+                            className="form-control"
+                            value={this.state.PCategory}
+                            onChange={this.onChangePCategory}>
                             {
                                 this.state.Category.map(function (category) {
                                     return <option
-                                    key={category}
-                                    value={category}>{category}
+                                        key={category}
+                                        value={category}>{category}
                                     </option>;
                                 })
                             }
@@ -193,15 +192,15 @@ export default class CreateProduct extends Component {
                     <div className="form-group">
                         <label>Product Name: </label>
                         <input type="text" required className="form-control"
-                                value={this.state.PName}
-                                onChange={this.onChangePName}/>
+                               value={this.state.PName}
+                               onChange={this.onChangePName}/>
                     </div>
 
                     <div className="form-group">
                         <label>Product Description: </label>
                         <textarea type="text" required className="form-control "
-                               value={this.state.PDescription}
-                               onChange={this.onChangePDescription}/>
+                                  value={this.state.PDescription}
+                                  onChange={this.onChangePDescription}/>
                     </div>
 
                     <div className="form-group">
@@ -228,11 +227,11 @@ export default class CreateProduct extends Component {
                     <div className="process">
 
                         <FileBase64
-                            multiple={ false }
-                            onDone={ this.getFiles.bind(this) } />
+                            multiple={false}
+                            onDone={this.getFiles.bind(this)}/>
                     </div>
-                        <div className="text-center">
-                            <img className={this.state.PImage ? "img1" : ""} src={this.state.PImage} />
+                    <div className="text-center">
+                        <img className={this.state.PImage ? "img1" : ""} src={this.state.PImage}/>
 
                     </div>
 

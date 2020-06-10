@@ -3,13 +3,14 @@ import '../CSS/header.css';
 import logo from '../Images/logo.jpg';
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {LOCAL_PATH} from "../constants/constants";
 
 const Header = () => {
 
     const [posts, setPosts] = useState([]);
 
     const doSom  = ()=>{
-        axios.get(document.location.origin + "/category/")
+        axios.get(LOCAL_PATH + "/category/")
             .then(response => {
                     setPosts(response.data);
             })

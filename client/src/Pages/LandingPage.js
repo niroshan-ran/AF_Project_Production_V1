@@ -7,6 +7,7 @@ import {loadUser1, loginUser} from "../action/auth";
 import logo from "../Images/logo.jpg";
 import {Redirect} from "react-router";
 import 'font-awesome/css/font-awesome.css';
+import {LOCAL_PATH} from "../constants/constants";
 
 function LandingPage(isLoggedIn) {
 
@@ -23,7 +24,7 @@ function LandingPage(isLoggedIn) {
     })
 
     useEffect(() => {
-        axios.get(document.location.origin + '/cart/')
+        axios.get(LOCAL_PATH + '/cart/')
             .then(response => {
                 setProduct(response.data)
                 console.log(response.data)

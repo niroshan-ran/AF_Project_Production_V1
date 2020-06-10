@@ -4,6 +4,7 @@ import "../CSS/allproduct.css"
 import axios from "axios";
 import $ from "jquery";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {LOCAL_PATH} from "../constants/constants";
 
 class AllProduct extends Component {
 
@@ -18,7 +19,7 @@ class AllProduct extends Component {
 
     componentDidMount() {
 
-        axios.get(document.location.origin + '/product/')
+        axios.get(LOCAL_PATH + '/product/')
             .then(response => {
                 this.setState({
                     products :response.data,

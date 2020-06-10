@@ -13,6 +13,7 @@ import ConfirmDeleteFeedbackModal from "./Components/ConfirmDeleteFeedbackModal"
 import LogedinHeader from "./LogedInHeader";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import {LOCAL_PATH} from "../constants/constants";
 
 class Feedback extends Component {
 
@@ -70,7 +71,7 @@ class Feedback extends Component {
     onDeleteFeedback = (id) => {
 
 
-        fetch(document.location.origin + '/api/feedback/delete/' + id, {
+        fetch(LOCAL_PATH + '/api/feedback/delete/' + id, {
             method: 'DELETE'
         }).then((response) => {
 
@@ -198,7 +199,7 @@ class Feedback extends Component {
 
         if (localStorage.getItem('userEmail')) {
 
-            let url = document.location.origin + "/api/feedback/user/" + localStorage.getItem('userEmail');
+            let url = LOCAL_PATH + "/api/feedback/user/" + localStorage.getItem('userEmail');
 
             fetch(url).then(response => response.json())
                 .then(json => this.setState({
@@ -232,7 +233,7 @@ class Feedback extends Component {
 
         }
 
-        let url2 = document.location.origin + "/api/feedback/";
+        let url2 = LOCAL_PATH + "/api/feedback/";
 
         fetch(url2).then(response => response.json())
             .then(json => this.setState({
@@ -387,7 +388,7 @@ class Feedback extends Component {
 
         console.log(this.state.feedback);
 
-        fetch(document.location.origin + "/api/feedback/add", {
+        fetch(LOCAL_PATH + "/api/feedback/add", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

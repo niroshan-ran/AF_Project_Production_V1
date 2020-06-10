@@ -6,6 +6,7 @@ import 'font-awesome/css/font-awesome.css';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {LOCAL_PATH} from "../constants/constants";
 
 
 const LogedinHeader = ({isLoggedIn, logOut, myCart, totQuantity, userID}) => {
@@ -13,7 +14,7 @@ const LogedinHeader = ({isLoggedIn, logOut, myCart, totQuantity, userID}) => {
     const [posts, setPosts] = useState([]);
 
     const doSom = () => {
-        axios.get(document.location.origin + "/category/")
+        axios.get(LOCAL_PATH + "/category/")
             .then(response => {
                 setPosts(response.data);
             })

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from "axios";
 import Swal from "sweetalert2";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {LOCAL_PATH} from "../../constants/constants";
 
 
 const Product = props =>(
@@ -39,7 +40,7 @@ export default class ProductList extends Component {
 
     componentDidMount() {
 
-        axios.get(document.location.origin + "/product/")
+        axios.get(LOCAL_PATH + "/product/")
             .then(response => {
                 this.setState({
                     product : response.data,
@@ -66,7 +67,7 @@ export default class ProductList extends Component {
             if (result.value) {
 
                 //delete product
-                axios.delete(document.location.origin + "/product/"+id)
+                axios.delete(LOCAL_PATH + "/product/"+id)
                     .then(res=>{
                         console.log(res.data);
                         this.setState({

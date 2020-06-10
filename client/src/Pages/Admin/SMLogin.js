@@ -5,28 +5,28 @@ import {loginSM} from "../../action/auth";
 import '../../CSS/login.css'
 import Header from "../Header";
 
-const SMLogin = ({ loginSM, isLoggedIn}) => {
+const SMLogin = ({loginSM, isLoggedIn}) => {
 
-    let [data,setData] = useState({
-        email:'',
-        password:''
+    let [data, setData] = useState({
+        email: '',
+        password: ''
     });
     let {email, password} = data;
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         return <Redirect to="/sm_pages"/>
     }
 
     const onChange = e => {
-        setData({...data,[e.target.name]: e.target.value})
+        setData({...data, [e.target.name]: e.target.value})
     };
 
     const submitData = () => {
-        loginSM(email,password);
+        loginSM(email, password);
     };
 
     return (
         <div>
-        <Header/>
+            <Header/>
             <div className="container">
 
                 <div className="whole-page">
@@ -46,7 +46,8 @@ const SMLogin = ({ loginSM, isLoggedIn}) => {
                                    onChange={(e) => onChange(e)}
                                    value={email}
                                    name="email"/>
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone
+                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with
+                                anyone
                                 else.</small>
                         </div>
                         <div className="form-group-1">
@@ -65,7 +66,6 @@ const SMLogin = ({ loginSM, isLoggedIn}) => {
                         </button>
 
 
-
                         <br/>
                         <br/>
                     </div>
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn
 })
 
-export default connect(mapStateToProps,{ loginSM })(SMLogin);
+export default connect(mapStateToProps, {loginSM})(SMLogin);

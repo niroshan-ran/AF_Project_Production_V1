@@ -2,6 +2,7 @@ import React, {Component } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import FileBase64 from "react-file-base64";
+import {LOCAL_PATH} from "../../constants/constants";
 
 export default class EditProduct extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ export default class EditProduct extends Component {
 
 
     componentDidMount() {
-        axios.get(document.location.origin + "/product/"+this.props.match.params.id)
+        axios.get(LOCAL_PATH + "/product/"+this.props.match.params.id)
             .then(response => {
                 this.setState({
                     PName : response.data.PName,
@@ -52,7 +53,7 @@ export default class EditProduct extends Component {
             })
 
 
-        axios.get(document.location.origin + "/category/")
+        axios.get(LOCAL_PATH + "/category/")
             .then(response => {
                 if (response.data.length >0){
                     this.setState({
@@ -139,7 +140,7 @@ export default class EditProduct extends Component {
 
         console.log(product);
 
-        axios.post(document.location.origin + "/product/update/"+this.props.match.params.id, product)
+        axios.post(LOCAL_PATH + "/product/update/"+this.props.match.params.id, product)
             .then(res =>{
                 console.log(res.data);
                 this.ProductSavedAlert();

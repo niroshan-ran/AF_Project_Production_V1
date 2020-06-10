@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 
 import "./Components/AlertStyles.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {LOCAL_PATH} from "../constants/constants";
 
 
 let CartView = (props) => {
@@ -36,7 +37,7 @@ let CartView = (props) => {
         setUserID(props.match.params.user);
         console.log("This is user id :" + props.match.params.user);
         setLoad(true);
-        axios.get(document.location.origin + '/cart/')
+        axios.get(LOCAL_PATH + '/cart/')
             .then(response => {
                 setLoad(false);
                 setProducts(response.data);

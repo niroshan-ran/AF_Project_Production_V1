@@ -17,6 +17,7 @@ import Fab from "@material-ui/core/Fab";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {LOCAL_PATH} from "../../constants/constants";
 
 
 class Feedback extends Component {
@@ -79,7 +80,7 @@ class Feedback extends Component {
     }
 
     fetchData = () => {
-        const url = document.location.origin + "/api/feedback/";
+        const url = LOCAL_PATH + "/api/feedback/";
         fetch(url).then(response => response.json())
             .then(json => this.setState({
                 feedbackList: json,
@@ -159,7 +160,7 @@ class Feedback extends Component {
         console.log(obj.newFeedback)
 
 
-        fetch(document.location.origin + "/api/feedback/" + obj.newFeedback._id, {
+        fetch(LOCAL_PATH + "/api/feedback/" + obj.newFeedback._id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -219,7 +220,7 @@ class Feedback extends Component {
             endDate = new Date();
         }
 
-        fetch(document.location.origin + "/api/feedback/search/" + startDate + "/" + endDate, {
+        fetch(LOCAL_PATH + "/api/feedback/search/" + startDate + "/" + endDate, {
             method: 'GET'
         }).then(response => response.json())
             .then(json => this.setState({

@@ -1,14 +1,8 @@
 import React, {useState} from "react";
-
 import {connect} from 'react-redux';
-
 import {registerSM} from "../../action/auth";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-
-//import '../CSS/registercss/register.css';
-
-//import Header from "./Header";
 
 
 const RegisterSM = ({isLoggedIn, registerSM}) => {
