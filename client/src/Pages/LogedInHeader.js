@@ -26,7 +26,7 @@ const LogedinHeader = ({isLoggedIn, logOut, myCart, totQuantity, userID}) => {
 
 
     console.log('from header');
-    console.log(myCart);
+    console.log(userID);
 
     return (
         isLoggedIn ? (
@@ -58,6 +58,10 @@ const LogedinHeader = ({isLoggedIn, logOut, myCart, totQuantity, userID}) => {
                             </li>
                             <li className="nav-item active">
                                 <a className="nav-link" href="/contact-us">About-us <span
+                                    className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" href={"/CheckedOutCarts/"+ localStorage.getItem('userId')}>My Carts<span
                                     className="sr-only">(current)</span></a>
                             </li>
                         </ul>

@@ -85,7 +85,7 @@ export default class MyCart extends Component {
         };
         //return this.props.location.state.myCart.map((product,i) =>(
         return this.state.myCart.map((product, i) => (
-            <div className="d-flex flex-row " key={i}>
+            <div className="d-flex flex-row mt-3" key={i}>
 
                 <img src={product.PImage} className="mh-50" style={mystyle} alt="logo"/>
 

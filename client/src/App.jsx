@@ -9,6 +9,7 @@ import {loadUser} from "./action/auth";
 import {setToken} from "./setToken";
 import UserPages from "./Pages/UserPages";
 import AdminPages from "./Pages/Admin/AdminPages";
+import CheckedOutCarts from "./Pages/CheckedOutCarts"
 //import Header from "./Pages/Header";
 import Feedback from "./Pages/Feedback";
 import ContactUs from "./Pages/ContactUs";
@@ -52,6 +53,7 @@ const App = () => {
                         <Route path="/login" component={Login}/>
                         <Route path="/LandingPage" component={LandingPage}/>
                         <Route path="/MyCart" component={MyCart}/>
+                        <Route path="/CheckedOutCarts/:user" component={CheckedOutCarts}/>
                         <Route path="/" component={Dashboard}/>
                     </Switch>
                 </Router>
