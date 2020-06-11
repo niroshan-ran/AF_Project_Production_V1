@@ -66,16 +66,19 @@ class ConfirmDeleteFeedbackModal extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            No
-                        </Button>
-                        <Button variant="primary" type="button"
-                                onClick={() => {
-                                    this.handleClose();
-                                    this.props.onDeleteFeedback(this.state.feedbackId);
-                                }}>
-                            Yes
-                        </Button>
+                        <div className="float-right">
+                            <Button variant="secondary" onClick={this.handleClose}>
+                                No
+                            </Button>
+                            <Button variant="primary" type="button"
+                                    onClick={() => {
+                                        this.handleClose();
+                                        this.props.onDeleteFeedback(this.state.feedbackId);
+                                    }}>
+                                Yes
+                            </Button>
+                        </div>
+
                     </Modal.Footer>
                 </Modal>
             </>

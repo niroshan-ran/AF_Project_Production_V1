@@ -49,62 +49,21 @@ class ToastMessage extends Component {
 
         if (this.state.show) {
 
-            if (this.state.statusColor === 'success') {
+
+
                 return (
 
                     <div className={classes.root} id={this.props.tId}>
                         <Alert onClose={() => {
                             this.props.showFunction(false)
-                        }} severity="success">
-                            <AlertTitle>{this.state.messageType}</AlertTitle>
-                            <p>{this.state.message}</p>
-                        </Alert>
-                    </div>
-
-
-                );
-            } else if (this.state.statusColor === 'info') {
-                return (
-
-                    <div className={classes.root} id={this.props.tId}>
-                        <Alert onClose={() => {
-                            this.props.showFunction(false)
-                        }} severity="info">
-                            <AlertTitle>{this.state.messageType}</AlertTitle>
-                            <p>{this.state.message}</p>
-                        </Alert>
-                    </div>
-
-
-                );
-            } else if (this.state.statusColor === 'warning') {
-                return (
-
-                    <div className={classes.root} id={this.props.tId}>
-                        <Alert onClose={() => {
-                            this.props.showFunction(false)
-                        }} severity="warning">
-                            <AlertTitle>{this.state.messageType}</AlertTitle>
-                            <p>{this.state.message}</p>
-                        </Alert>
-                    </div>
-
-
-                );
-            } else {
-                return (
-
-                    <div className={classes.root} id={this.props.tId}>
-                        <Alert onClose={() => {
-                            this.props.showFunction(false)
-                        }} severity="error">
+                        }} severity={`${this.state.statusColor}`}>
                             <AlertTitle>{this.state.messageType}</AlertTitle>
                             <p>{this.state.message}</p>
                         </Alert>
                     </div>
 
                 );
-            }
+
 
         }
 
