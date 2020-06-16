@@ -107,12 +107,15 @@ class ReplyModal extends Component {
 
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={this.handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" type="submit">
-                                Submit&nbsp;Reply
-                            </Button>
+                            <div className="float-right">
+                                <Button variant="secondary" onClick={this.handleClose}>
+                                    Close
+                                </Button>
+                                <Button variant="primary" type="submit">
+                                    Submit&nbsp;Reply
+                                </Button>
+                            </div>
+
                         </Modal.Footer>
                     </Form>
                 </Modal>

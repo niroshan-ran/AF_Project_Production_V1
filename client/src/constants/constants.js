@@ -11,5 +11,5 @@ export const LOAD_SM = "LOAD SM";
 export const ADD_TO_CART_USER = 'add_to_cart_user';
 export const AUTH_USER = 'auth_user';
 
-export const LOCAL_PATH = 'http://localhost:4001';
-//export const LOCAL_PATH = document.location.origin;
+//export const LOCAL_PATH = 'http://localhost:4001';
+export const LOCAL_PATH = document.location.origin;

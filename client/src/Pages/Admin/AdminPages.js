@@ -10,7 +10,7 @@ import CreateProduct from "./create-product.component";
 import CreateCategory from "./create-category.component";
 import Logout from "./AdminLogout";
 import NewOrders from "./new-order.component";
-import CusFeedback from "./Feedback";
+import CusFeedback from "./AdminFeedback";
 import SMPage from "./SMPage";
 
 function App() {

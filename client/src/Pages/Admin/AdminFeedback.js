@@ -18,9 +18,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import {LOCAL_PATH} from "../../constants/constants";
+import Axios from "axios";
 
 
-class Feedback extends Component {
+class AdminFeedback extends Component {
 
 
     constructor(props) {
@@ -80,23 +81,42 @@ class Feedback extends Component {
     }
 
     fetchData = () => {
-        const url = LOCAL_PATH + "/api/feedback/";
-        fetch(url).then(response => response.json())
-            .then(json => this.setState({
-                feedbackList: json,
-                loading :false
-            }, () => {
 
-                let sortedList = this.state.feedbackList;
+        Axios.get(`${LOCAL_PATH}/api/feedback/`)
+            .then(res => {
 
-                sortedList.sort((a, b) => {
-                    return new Date(b.createdAt) - new Date(a.createdAt)
-                })
+                if (res.status === 200) {
+                    this.setState({
+                        feedbackList: res.data,
+                        loading: false
+                    }, () => {
 
-                this.setState({
-                    feedbackList: sortedList
-                })
-            })).catch(() => {
+                        let sortedList = this.state.feedbackList;
+
+                        sortedList.sort((a, b) => {
+                            return new Date(b.createdAt) - new Date(a.createdAt)
+                        })
+
+                        this.setState({
+                            feedbackList: sortedList
+                        })
+                    });
+                } else {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: "Unexpected Issue Occurred...",
+                        toastType: 'Error',
+                        typeColor: "error"
+                    });
+
+                    setTimeout(() => {
+                        this.setState({
+                            showToast: false
+                        })
+                    }, 5000);
+                }
+
+            }).catch(() => {
             this.setState({
                 showToast: true,
                 toastMessage: "Unexpected Issue Occurred...",
@@ -160,36 +180,29 @@ class Feedback extends Component {
         console.log(obj.newFeedback)
 
 
-        fetch(LOCAL_PATH + "/api/feedback/" + obj.newFeedback._id, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(obj.newFeedback)
-        }).then((r) => {
+        Axios.put(`${LOCAL_PATH}/api/feedback/${obj.newFeedback._id}`, obj.newFeedback)
+            .then((r) => {
+
+                if (r.status === 200) {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: 'Replied to the Feedback!!!',
+                        toastType: 'Information',
+                        typeColor: "success"
+                    })
+
+                    this.fetchData();
+                } else {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: "Unexpected Response Status " + r.status + " Occurred...",
+                        toastType: 'Error',
+                        typeColor: "warning"
+                    });
+                }
 
 
-            if (r.status === 200) {
-                this.setState({
-                    showToast: true,
-                    toastMessage: 'Replied to the Feedback!!!',
-                    toastType: 'Information',
-                    typeColor: "success"
-                })
-
-                this.fetchData();
-            } else {
-                this.setState({
-                    showToast: true,
-                    toastMessage: "Unexpected Response Status " + r.status + " Occurred...",
-                    toastType: 'Error',
-                    typeColor: "warning"
-                });
-            }
-
-
-        }).catch(() => {
+            }).catch(() => {
             this.setState({
                 showToast: true,
                 toastMessage: "Unexpected Issue Occurred...",
@@ -220,58 +233,69 @@ class Feedback extends Component {
             endDate = new Date();
         }
 
-        fetch(LOCAL_PATH + "/api/feedback/search/" + startDate + "/" + endDate, {
-            method: 'GET'
-        }).then(response => response.json())
-            .then(json => this.setState({
-                feedbackList: json
-            }, () => {
+        Axios.get(`${LOCAL_PATH}/api/feedback/search/${startDate}/${endDate}`)
+            .then(response => {
 
-                this.setState({
-                    showModale: false
-                }, () => {
-
-                    let sortedList = this.state.feedbackList;
-
-                    sortedList.sort((a, b) => {
-                        return new Date(b.createdAt) - new Date(a.createdAt)
-                    })
-
+                if (response.status === 200) {
                     this.setState({
-                        feedbackList: sortedList
+                        feedbackList: response.data
+                    }, () => {
+
+                        this.setState({
+                            showModale: false
+                        }, () => {
+
+                            let sortedList = this.state.feedbackList;
+
+                            sortedList.sort((a, b) => {
+                                return new Date(b.createdAt) - new Date(a.createdAt)
+                            })
+
+                            this.setState({
+                                feedbackList: sortedList
+                            })
+
+                            if (this.state.feedbackList.length > 0) {
+                                this.setState({
+                                    showToast: true,
+                                    toastMessage: 'Results Found!!!',
+                                    toastType: 'Information',
+                                    typeColor: "success",
+                                    checkedFromBegin: false,
+                                    checkedToEnd: false
+                                })
+
+
+                            } else {
+
+                                this.fetchData();
+
+                                this.setState({
+                                    showToast: true,
+                                    toastMessage: 'No Results!!!',
+                                    toastType: 'Information',
+                                    typeColor: "info",
+                                    checkedFromBegin: false,
+                                    checkedToEnd: false,
+                                })
+                            }
+                        })
+
+                        document.getElementById('start datetime-local').value = "";
+                        document.getElementById('end datetime-local').value = "";
+
+
                     })
+                } else {
+                    this.setState({
+                        showToast: true,
+                        toastMessage: "Unexpected Issue Occurred...",
+                        toastType: 'Error',
+                        typeColor: "error"
+                    });
+                }
 
-                    if (this.state.feedbackList.length > 0) {
-                        this.setState({
-                            showToast: true,
-                            toastMessage: 'Results Found!!!',
-                            toastType: 'Information',
-                            typeColor: "success",
-                            checkedFromBegin: false,
-                            checkedToEnd: false
-                        })
-
-
-                    } else {
-
-                        this.fetchData();
-
-                        this.setState({
-                            showToast: true,
-                            toastMessage: 'No Results!!!',
-                            toastType: 'Information',
-                            typeColor: "info",
-                            checkedFromBegin: false,
-                            checkedToEnd: false,
-                        })
-                    }
-                })
-
-                document.getElementById('start datetime-local').value = "";
-                document.getElementById('end datetime-local').value = "";
-
-
-            })).catch(() => {
+            }).catch(() => {
             this.setState({
                 showToast: true,
                 toastMessage: "Unexpected Issue Occurred...",
@@ -465,73 +489,73 @@ class Feedback extends Component {
                 {
                     this.state.loading ? <LinearProgress color="secondary"/> :
 
-                    feedbackList.map((feedback, index) => (
-                        <div key={index}>
-                            <div className="mr-xl-5 ml-xl-5">
-                                <Card>
-                                    <Card.Header>
-                                        <div className="float-left">
-                                            {feedback.name}
-                                        </div>
-                                        <div className="float-right">
-                                            {feedback.email}
-                                        </div>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <div className="float-left w-75">
+                        feedbackList.map((feedback, index) => (
+                            <div key={index}>
+                                <div className="mr-xl-5 ml-xl-5">
+                                    <Card>
+                                        <Card.Header>
+                                            <div className="float-left">
+                                                {feedback.name}
+                                            </div>
+                                            <div className="float-right">
+                                                {feedback.email}
+                                            </div>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <div className="float-left w-75">
 
-                                            <Card.Title>{feedback.comment}</Card.Title>
+                                                <Card.Title>{feedback.comment}</Card.Title>
 
-                                            <div className={classes.root}>
-                                                <Rating
-                                                    size="large"
-                                                    max={7}
-                                                    name="read-only size-large"
-                                                    value={feedback.rating}
-                                                    precision={1}
-                                                    readOnly
-                                                />
-                                                <Box ml={0.5}
-                                                     className="text-muted">{this.labels[feedback.rating]}</Box>
+                                                <div className={classes.root}>
+                                                    <Rating
+                                                        size="large"
+                                                        max={7}
+                                                        name="read-only size-large"
+                                                        value={feedback.rating}
+                                                        precision={1}
+                                                        readOnly
+                                                    />
+                                                    <Box ml={0.5}
+                                                         className="text-muted">{this.labels[feedback.rating]}</Box>
+                                                </div>
+
+                                                <hr/>
+
+                                                {
+                                                    feedback.reply !== "" ?
+                                                        <div>
+                                                            <Card.Subtitle>Reply</Card.Subtitle>
+                                                            <Card.Text>{feedback.reply}</Card.Text>
+                                                        </div> : <></>
+                                                }
+
+
+                                            </div>
+                                            <div className="float-right flex-row w-25 text-center">
+
+                                                <ReplyModal onReplySubmit={this.onReplySubmit} feedbackObj={feedback}/>
+
                                             </div>
 
-                                            <hr/>
 
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <div className="float-left">
+                                                Created&nbsp;on&nbsp;{new Date(feedback.createdAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.createdAt).toLocaleTimeString()}
+                                            </div>
                                             {
                                                 feedback.reply !== "" ?
-                                                    <div>
-                                                        <Card.Subtitle>Reply</Card.Subtitle>
-                                                        <Card.Text>{feedback.reply}</Card.Text>
+                                                    <div className="float-right">
+                                                        Replied&nbsp;on&nbsp;{new Date(feedback.updatedAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.updatedAt).toLocaleTimeString()}
                                                     </div> : <></>
                                             }
+                                        </Card.Footer>
 
-
-                                        </div>
-                                        <div className="float-right flex-row w-25 text-center">
-
-                                            <ReplyModal onReplySubmit={this.onReplySubmit} feedbackObj={feedback}/>
-
-                                        </div>
-
-
-                                    </Card.Body>
-                                    <Card.Footer>
-                                        <div className="float-left">
-                                            Created&nbsp;on&nbsp;{new Date(feedback.createdAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.createdAt).toLocaleTimeString()}
-                                        </div>
-                                        {
-                                            feedback.reply !== "" ?
-                                                <div className="float-right">
-                                                    Replied&nbsp;on&nbsp;{new Date(feedback.updatedAt).toLocaleDateString()}&nbsp;@&nbsp;{new Date(feedback.updatedAt).toLocaleTimeString()}
-                                                </div> : <></>
-                                        }
-                                    </Card.Footer>
-
-                                </Card>
+                                    </Card>
+                                </div>
+                                <hr/>
                             </div>
-                            <hr/>
-                        </div>
-                    ))
+                        ))
 
                 }
 
@@ -546,5 +570,5 @@ class Feedback extends Component {
 }
 
 
-export default (Feedback);
+export default (AdminFeedback);
 
