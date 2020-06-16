@@ -74,6 +74,7 @@ export default class MyCart extends Component {
                 axios.delete(LOCAL_PATH + "/checkedOutCarts/"+id)
                     .then(res=>{
                         console.log(res.data);
+                        console.log(id);
                         this.setState({
                             carts: this.state.carts.filter(el => el._id !== id)
                         })

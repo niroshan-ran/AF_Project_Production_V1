@@ -73,6 +73,7 @@ export default class MyCart extends Component {
             .then(res => {
                     console.log(res.data);
                     this.confirmAlart();
+                window.location = "/CartView/"+this.state.userID;
                 }
             );
 
