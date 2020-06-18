@@ -15,7 +15,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/:id').delete((req, res) => {
-    Product.findByIdAndDelete(req.params.id)
+    Cart.findByIdAndDelete(req.params.id)
         .then(() => res.json('Cart Deleted!'))
         .catch(err => res.status(400).json('Error:' + err));
 });
