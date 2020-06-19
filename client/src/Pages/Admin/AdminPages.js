@@ -9,7 +9,6 @@ import EditProduct from "./edit-product.component";
 import CreateProduct from "./create-product.component";
 import CreateCategory from "./create-category.component";
 import Logout from "./AdminLogout";
-import NewOrders from "./new-order.component";
 import CusFeedback from "./AdminFeedback";
 import SMPage from "./SMPage";
 
@@ -36,7 +35,6 @@ function App() {
                                     <Route path="/edit/:id" component={EditProduct}/>
                                     <Route path="/product" component={CreateProduct}/>
                                     <Route path="/category" component={CreateCategory}/>
-                                    <Route path="/newOrders" component={NewOrders}/>
                                     <Route path="/sm_pages" component={SMPage}/>
                                     {localStorage.getItem("admin") ?
                                         <Route path="/sm_register" component={RegisterSM}/> : <></>}

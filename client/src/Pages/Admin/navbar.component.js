@@ -19,9 +19,6 @@ export default class Navbar extends Component {
                                 <Link to="/product" className="nav-link">Create Products</Link>
                             </li>
                             <li className="navbar-item">
-                                <Link to="/newOrders" className="nav-link">New Orders</Link>
-                            </li>
-                            <li className="navbar-item">
                                 <Link to="/cusFeedback" className="nav-link">Customer Feedback</Link>
                             </li>
                             {localStorage.getItem("admin") ?
