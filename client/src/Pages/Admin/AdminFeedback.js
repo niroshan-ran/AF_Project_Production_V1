@@ -17,7 +17,7 @@ import Fab from "@material-ui/core/Fab";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {LOCAL_PATH} from "../../constants/constants";
+import {SERVER_PATH} from "../../constants/constants";
 import Axios from "axios";
 
 
@@ -82,7 +82,7 @@ class AdminFeedback extends Component {
 
     fetchData = () => {
 
-        Axios.get(`${LOCAL_PATH}/api/feedback/`)
+        Axios.get(`${SERVER_PATH}/api/feedback/`)
             .then(res => {
 
                 if (res.status === 200) {
@@ -180,7 +180,7 @@ class AdminFeedback extends Component {
         console.log(obj.newFeedback)
 
 
-        Axios.put(`${LOCAL_PATH}/api/feedback/${obj.newFeedback._id}`, obj.newFeedback)
+        Axios.put(`${SERVER_PATH}/api/feedback/${obj.newFeedback._id}`, obj.newFeedback)
             .then((r) => {
 
                 if (r.status === 200) {
@@ -233,7 +233,7 @@ class AdminFeedback extends Component {
             endDate = new Date();
         }
 
-        Axios.get(`${LOCAL_PATH}/api/feedback/search/${startDate}/${endDate}`)
+        Axios.get(`${SERVER_PATH}/api/feedback/search/${startDate}/${endDate}`)
             .then(response => {
 
                 if (response.status === 200) {

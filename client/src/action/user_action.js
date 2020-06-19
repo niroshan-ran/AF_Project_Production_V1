@@ -1,19 +1,8 @@
 import axios from 'axios';
-import {
-    REGISTER_SUCCESS,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    REGISTER_FAIL,
-    LOAD_USER,
-    AUTH_ERROR,
-    LOG_OUT, LOAD_SM,
-    AUTH_USER,
-    ADD_TO_CART_USER
-} from '../constants/constants';
-import { setToken } from "../setToken";
+import {ADD_TO_CART_USER, AUTH_USER} from '../constants/constants';
 
 export function addToCart(_id){
-    const request = axios.post(LOCAL_PATH +`/api/cart/addToCart?productId=${_id}`)
+    const request = axios.post(SERVER_PATH + `/api/cart/addToCart?productId=${_id}`)
         .then(response => response.data);
 
     return{
@@ -23,7 +12,7 @@ export function addToCart(_id){
 }
 
 export function auth() {
-    const request = axios.get(LOCAL_PATH +`/api/cart/auth`)
+    const request = axios.get(SERVER_PATH + `/api/cart/auth`)
         .then(response => response.data);
 
     return {

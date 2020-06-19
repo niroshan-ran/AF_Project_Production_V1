@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import LogedinHeader from "./LogedInHeader";
-import {connect, useDispatch} from "react-redux";
-import {addToCart, logOut} from "../action/auth";
-import {loadUser1, loginUser} from "../action/auth";
+import {connect} from "react-redux";
+import {logOut} from "../action/auth";
 import logo from "../Images/logo.jpg";
 import {Redirect} from "react-router";
 import 'font-awesome/css/font-awesome.css';
-import {LOCAL_PATH} from "../constants/constants";
+import {SERVER_PATH} from "../constants/constants";
 
 function LandingPage(isLoggedIn) {
 
@@ -24,7 +22,7 @@ function LandingPage(isLoggedIn) {
     })
 
     useEffect(() => {
-        axios.get(LOCAL_PATH + '/cart/')
+        axios.get(SERVER_PATH + '/cart/')
             .then(response => {
                 setProduct(response.data)
                 console.log(response.data)

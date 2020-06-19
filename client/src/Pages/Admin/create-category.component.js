@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from "axios";
 import "./nav.css";
 import Swal from "sweetalert2";
-import {LOCAL_PATH} from "../../constants/constants";
+import {SERVER_PATH} from "../../constants/constants";
 
 export default class CreateCategory extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ export default class CreateCategory extends Component {
     }
 
     getData = () => {
-        axios.get(LOCAL_PATH + "/category/")
+        axios.get(SERVER_PATH + "/category/")
             .then(response => {
                 this.setState({
                     category: response.data
@@ -89,7 +89,7 @@ export default class CreateCategory extends Component {
 
         console.log(category);
 
-        axios.post(LOCAL_PATH + '/category/add', category)
+        axios.post(SERVER_PATH + '/category/add', category)
             .then(res => {
                     console.log(res.data);
 
@@ -120,7 +120,7 @@ export default class CreateCategory extends Component {
             if (result.value) {
 
                 //delete category
-                axios.delete(LOCAL_PATH + "/category/" + id)
+                axios.delete(SERVER_PATH + "/category/" + id)
                     .then(res => {
                             console.log(res.data)
                             this.setState({
@@ -160,7 +160,7 @@ export default class CreateCategory extends Component {
                 cdescription: this.state.cdescription,
             }
 
-            axios.post(LOCAL_PATH + "/category/update/" + this.state.selectCategory._id, category)
+            axios.post(SERVER_PATH + "/category/update/" + this.state.selectCategory._id, category)
                 .then(res => {
                     console.log(res);
                     this.getData();

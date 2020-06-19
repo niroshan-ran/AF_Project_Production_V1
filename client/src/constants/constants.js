@@ -11,5 +11,26 @@ export const LOAD_SM = "LOAD SM";
 export const ADD_TO_CART_USER = 'add_to_cart_user';
 export const AUTH_USER = 'auth_user';
 
-export const LOCAL_PATH = 'http://localhost:4001';
+export const SERVER_PATH = getServerPath();
+
+export const CLIENT_PATH = getClientPath();
+
 //export const LOCAL_PATH = document.location.origin;
+
+function getClientPath() {
+
+    if (process.env.NODE_ENV === 'production') {
+        return document.location.origin;
+    } else {
+        return 'http://localhost:3000';
+    }
+
+}
+
+function getServerPath() {
+    if (process.env.NODE_ENV === 'production') {
+        return document.location.origin;
+    } else {
+        return 'http://localhost:4001';
+    }
+}

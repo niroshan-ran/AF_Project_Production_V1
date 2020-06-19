@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
 import Swal from 'sweetalert2'
-import {LOCAL_PATH} from "../../constants/constants";
+import {SERVER_PATH} from "../../constants/constants";
 
 
 export default class CreateProduct extends Component {
@@ -39,7 +39,7 @@ export default class CreateProduct extends Component {
 
     componentDidMount() {
 
-        axios.get(LOCAL_PATH + "/category/")
+        axios.get(SERVER_PATH + "/category/")
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -153,7 +153,7 @@ export default class CreateProduct extends Component {
 
                 console.log(product);
 
-                axios.post(LOCAL_PATH + "/product/add", product)
+                axios.post(SERVER_PATH + "/product/add", product)
                     .then(res => {
                         console.log(res.data);
                         this.confirmAlart();

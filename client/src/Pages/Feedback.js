@@ -13,7 +13,7 @@ import ConfirmDeleteFeedbackModal from "./Components/ConfirmDeleteFeedbackModal"
 import LogedinHeader from "./LogedInHeader";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import {LOCAL_PATH} from "../constants/constants";
+import {SERVER_PATH} from "../constants/constants";
 import Axios from "axios";
 
 class Feedback extends Component {
@@ -71,7 +71,7 @@ class Feedback extends Component {
 
     onDeleteFeedback = (id) => {
 
-        Axios.delete(`${LOCAL_PATH}/api/feedback/delete/${id}`)
+        Axios.delete(`${SERVER_PATH}/api/feedback/delete/${id}`)
             .then((response) => {
 
 
@@ -167,7 +167,7 @@ class Feedback extends Component {
         if (localStorage.getItem('userEmail')) {
 
 
-            Axios.get(`${LOCAL_PATH}/api/feedback/user/${localStorage.getItem('userEmail')}`)
+            Axios.get(`${SERVER_PATH}/api/feedback/user/${localStorage.getItem('userEmail')}`)
                 .then(response => {
 
                     if (response.status === 200) {
@@ -213,7 +213,7 @@ class Feedback extends Component {
         }
 
 
-        Axios.get(`${LOCAL_PATH}/api/feedback/`)
+        Axios.get(`${SERVER_PATH}/api/feedback/`)
             .then(response => {
 
                 if (response.status === 200) {
@@ -379,7 +379,7 @@ class Feedback extends Component {
 
         console.log(this.state.feedback);
 
-        Axios.post(`${LOCAL_PATH}/api/feedback/add`, this.state.feedback)
+        Axios.post(`${SERVER_PATH}/api/feedback/add`, this.state.feedback)
             .then((r) => {
 
             if (r.status === 200) {

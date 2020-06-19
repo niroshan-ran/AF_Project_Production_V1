@@ -4,7 +4,7 @@ import {loginUser} from "../action/auth";
 import 'font-awesome/css/font-awesome.css';
 import LogedinHeader from "./LogedInHeader";
 import Swal from "sweetalert2";
-import {LOCAL_PATH} from "../constants/constants";
+import {SERVER_PATH} from "../constants/constants";
 
 
 export default class MyCart extends Component {
@@ -26,7 +26,7 @@ export default class MyCart extends Component {
         this.setState({userID: this.props.match.params.user})
         console.log("This is user id :" +this.props.match.params.user);
 
-        axios.get(LOCAL_PATH + '/checkedOutCarts/')
+        axios.get(SERVER_PATH + '/checkedOutCarts/')
             .then(response => {
                 this.setState({carts :response.data})
                 //console.log(this.state.products);
@@ -71,7 +71,7 @@ export default class MyCart extends Component {
             if (result.value) {
 
                 //delete product
-                axios.delete(LOCAL_PATH + "/checkedOutCarts/"+id)
+                axios.delete(SERVER_PATH + "/checkedOutCarts/" + id)
                     .then(res=>{
                         console.log(res.data);
                         console.log(id);

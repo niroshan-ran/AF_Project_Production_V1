@@ -4,7 +4,7 @@ import {loginUser} from "../action/auth";
 import 'font-awesome/css/font-awesome.css';
 import LogedinHeader from "./LogedInHeader";
 import Swal from "sweetalert2";
-import {LOCAL_PATH} from "../constants/constants";
+import {SERVER_PATH} from "../constants/constants";
 
 
 export default class MyCart extends Component {
@@ -69,7 +69,7 @@ export default class MyCart extends Component {
 
         console.log(cart);
 
-        axios.post(LOCAL_PATH + '/cart/add', cart)
+        axios.post(SERVER_PATH + '/cart/add', cart)
             .then(res => {
                     console.log(res.data);
                     this.confirmAlart();

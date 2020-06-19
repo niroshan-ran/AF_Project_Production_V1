@@ -2,13 +2,15 @@ import {
     ADD_TO_CART_USER,
     AUTH_ERROR,
     AUTH_USER,
+    CLIENT_PATH,
     LOAD_SM,
-    LOAD_USER, LOCAL_PATH,
+    LOAD_USER,
     LOG_OUT,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    SERVER_PATH
 } from '../constants/constants';
 
 import axios from 'axios';
@@ -23,7 +25,7 @@ export const loadUser1 = () => {
         setToken(localStorage.getItem('token'));
     }
 
-    const response = axios.get(LOCAL_PATH + '/api/users');
+    const response = axios.get(SERVER_PATH + '/api/users');
 
     return response;
 
@@ -36,7 +38,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(LOCAL_PATH + '/api/users');
+        const response = await axios.get(SERVER_PATH + '/api/users');
 
         const position = response.data.position;
         //console.log(position);
@@ -66,7 +68,7 @@ export const loadSM = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(LOCAL_PATH + '/api/store_manager');
+        const response = await axios.get(SERVER_PATH + '/api/store_manager');
 
         dispatch({
             type:LOAD_SM,
@@ -93,8 +95,8 @@ export const registerUser = (firstName, lastName, email, password) => async disp
             }
         }
 
-        const body = JSON.stringify({firstName, lastName,  email, password})
-        const response = await axios.post(LOCAL_PATH + '/api/users/register',body,config);
+        const body = JSON.stringify({firstName, lastName, email, password})
+        const response = await axios.post(SERVER_PATH + '/api/users/register', body, config);
 
         dispatch({
             type:REGISTER_SUCCESS,
@@ -123,7 +125,7 @@ export const registerSM = (firstName, lastName, position, email, password) => as
         }
 
         const body = JSON.stringify({firstName, lastName, position, email, password})
-        const response = await axios.post(LOCAL_PATH + '/api/store_manager/sm_register',body,config);
+        const response = await axios.post(SERVER_PATH + '/api/store_manager/sm_register', body, config);
 
         dispatch({
             type:REGISTER_SUCCESS,
@@ -172,7 +174,7 @@ export const loginUser = (email, password) => async dispatch => {
         }
 
         const body = JSON.stringify({email, password})
-        const response1 = await axios.post(LOCAL_PATH + '/api/users/login', body, config);
+        const response1 = await axios.post(SERVER_PATH + '/api/users/login', body, config);
 
         if(response1.data !== undefined){
             loggedAlert();
@@ -207,7 +209,7 @@ export const getPosition = () => async dispatch => {
     }
 
     try{
-        const response = await axios.get(LOCAL_PATH + '/api/users')
+        const response = await axios.get(SERVER_PATH + '/api/users')
             .then(res => console.log(res.data.position));
         dispatch({
             type:LOAD_USER,
@@ -235,7 +237,7 @@ export const loginSM = (email, password) => async dispatch => {
 
         }
         const body = JSON.stringify({email, password})
-        const response2 = await axios.post(LOCAL_PATH + '/api/store_manager/sm_login', body, config);
+        const response2 = await axios.post(SERVER_PATH + '/api/store_manager/sm_login', body, config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response2.data
@@ -251,7 +253,7 @@ export const loginSM = (email, password) => async dispatch => {
 };
 
 export function addToCart(_id){
-    const request = axios.post(LOCAL_PATH + `/api/cart/addToCart?productId=${_id}`)
+    const request = axios.post(SERVER_PATH + `/api/cart/addToCart?productId=${_id}`)
         .then(response => response.data);
 
     return{
@@ -261,7 +263,7 @@ export function addToCart(_id){
 }
 
 export function auth() {
-    const request = axios.get(LOCAL_PATH +`/api/cart/auth`)
+    const request = axios.get(SERVER_PATH + `/api/cart/auth`)
         .then(response => response.data);
 
     return {
@@ -326,5 +328,5 @@ export const logOut = () => async dispatch =>{
         type: LOG_OUT,
     });
 
-    window.location = LOCAL_PATH;
+    window.location = CLIENT_PATH;
 }
