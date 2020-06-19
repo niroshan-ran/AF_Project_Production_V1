@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {logOut} from "../../action/auth";
 import Swal from "sweetalert2";
-import {SERVER_PATH} from "../../constants/constants";
+import {CLIENT_PATH} from "../../constants/constants";
 
 
 const AdminLogout = ({isLoggedIn,logOut}) => {
@@ -14,7 +14,7 @@ const AdminLogout = ({isLoggedIn,logOut}) => {
                             logoutAlert(logOut)
                         ) :
                         (
-                            window.location = SERVER_PATH + "/admin"
+                            window.location = CLIENT_PATH + "/admin"
                         )
                 }
 
@@ -35,7 +35,7 @@ const logoutAlert = (logOut) =>{
         if (result.isConfirmed) {
             logOut()
         } else {
-            window.location = SERVER_PATH + "/admin";
+            window.location = CLIENT_PATH + "/admin";
         }
     })
 }
