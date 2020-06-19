@@ -76,7 +76,7 @@ class AllProduct extends Component {
 
     productList(){
         return this.state.products.filter((prod) => prod.PCategory===this.props.match.params.name).map((product,i) =>(
-            <div className="col-sm-6 col-md-4 mb-1" key={i}>
+            <div className="col-md-4 mb-1" key={i}>
                 <div className="img-thumbnail">
                     <img className="img-responsive" alt="logo" width={200} height={350} src={product.PImage}/>
                     <div className="figure-caption ml-3">

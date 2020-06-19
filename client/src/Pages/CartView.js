@@ -52,7 +52,7 @@ let CartView = (props) => {
 
     let productList = () => {
         return products.map((product, i) => (
-            <div className="col-sm-6 col-md-4 mb-3" key={i}>
+            <div className="col-md-4 mb-3" key={i}>
                 <div className="img-thumbnail">
                     <img src={product.PImage} className="img-responsive" alt="logo"/>
                     <div className="figure-caption ml-3">
