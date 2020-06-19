@@ -61,9 +61,9 @@ let CartView = (props) => {
                         <div className="clearfix">
                             <div className="pull-left"
                                  style={{fontWeight: "bold", fontSize: "16px"}}>Rs {product.PPrice}</div>
-                            <p className="pull-right"><a onClick={() => addToCarthandler(product)}
+                            <p className="pull-right"><a style={{color:"white"}} onClick={() => addToCarthandler(product)}
                                                          className="btn btn-success" role="button">Add To Cart</a>
-                                <a href="#" className="btn btn-info" role="button">Wish List</a></p>
+                            </p>
                         </div>
                     </div>
                 </div>
