@@ -29,7 +29,7 @@ function App() {
 
                             <div>
                                 <div style={{padding: "20px"}}>
-                                    <Route path="/list" exact component={ProductList}/>
+                                    <Route path="/admin" exact component={ProductList}/>
                                 </div>
 
                                 <div className="container" style={{border: "solid lightgrey 1px"}}>

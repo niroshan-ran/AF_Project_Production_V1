@@ -81,7 +81,9 @@ const Login = ({loginUser, isLoggedIn}) => {
         setData({...data, [e.target.name]: e.target.value})
     };
 
-    const submitData = () => {
+    const submitData = (event) => {
+
+        event.preventDefault();
 
         if (email === "" || password === "") {
             fieldmissAlart();
@@ -106,43 +108,46 @@ const Login = ({loginUser, isLoggedIn}) => {
                         </div>
                     </div>
 
+
                     <div className="login_form ">
-                        <div className="form-group-1">
-                            <label htmlFor="exampleInputEmail1">Email address</label>
-                            <input type="email"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   onChange={(e) => onChange(e)}
-                                   value={email}
-                                   name="email"/>
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with
-                                anyone
-                                else.</small>
-                        </div>
-                        <div className="form-group-1">
-                            <label htmlFor="exampleInputPassword1">Password</label>
-                            <input type="password"
-                                   className="form-control"
-                                   id="exampleInputPassword1"
-                                   onChange={(e) => onChange(e)}
-                                   value={password}
-                                   name="password"/>
-                        </div>
+                        <form onSubmit={(event) => submitData(event)}>
+                            <div className="form-group-1">
+                                <label htmlFor="exampleInputEmail1">Email address</label>
+                                <input type="email"
+                                       className="form-control"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       onChange={(e) => onChange(e)}
+                                       value={email}
+                                       name="email" required/>
+                                <small id="emailHelp" className="form-text text-muted">We'll never share your email with
+                                    anyone
+                                    else.</small>
+                            </div>
+                            <div className="form-group-1">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input type="password"
+                                       className="form-control"
+                                       id="exampleInputPassword1"
+                                       onChange={(e) => onChange(e)}
+                                       value={password}
+                                       name="password" required/>
+                            </div>
 
-                        <button type="button" className="btn btn-info">
-                            <a className="register-anchor" href="/register">Register</a>
-                        </button>
+                            <button type="button" className="btn btn-info">
+                                <a className="register-anchor" href="/register">Register</a>
+                            </button>
 
-                        <button type="submit"
-                                className="btn btn-primary"
-                                onClick={() => submitData()}>Login
-                        </button>
+                            <button type="submit"
+                                    className="btn btn-primary">Login
+                            </button>
 
 
-                        <br/>
-                        <br/>
+                            <br/>
+                            <br/>
+                        </form>
                     </div>
+
                 </div>
 
             </div>

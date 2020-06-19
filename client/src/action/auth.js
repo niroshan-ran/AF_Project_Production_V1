@@ -19,41 +19,38 @@ import {setToken} from "../setToken";
 import Swal from "sweetalert2";
 
 
-export const loadUser1 = () => {
+export const loadUser1 = async () => {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         setToken(localStorage.getItem('token'));
     }
 
-    const response = axios.get(SERVER_PATH + '/api/users');
-
-    return response;
+    return await axios.get(SERVER_PATH + '/api/users');
 
 }
 
 export const loadUser = () => async dispatch => {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         setToken(localStorage.getItem('token'));
     }
 
-    try{
+    try {
         const response = await axios.get(SERVER_PATH + '/api/users');
 
         const position = response.data.position;
         //console.log(position);
 
         dispatch({
-            type:LOAD_USER,
-            payload:response.data,
+            type: LOAD_USER,
+            payload: response.data,
         })
 
 
-
-    }catch (e) {
+    } catch (e) {
 
         dispatch({
-            type:AUTH_ERROR,
+            type: AUTH_ERROR,
             payload: e
         })
     }
@@ -63,22 +60,22 @@ export const loadUser = () => async dispatch => {
 
 export const loadSM = () => async dispatch => {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         setToken(localStorage.getItem('token'));
     }
 
-    try{
+    try {
         const response = await axios.get(SERVER_PATH + '/api/store_manager');
 
         dispatch({
-            type:LOAD_SM,
-            payload:response.data
+            type: LOAD_SM,
+            payload: response.data
         })
 
-    }catch (e) {
+    } catch (e) {
 
         dispatch({
-            type:AUTH_ERROR,
+            type: AUTH_ERROR,
             payload: e
         })
 
@@ -88,7 +85,7 @@ export const loadSM = () => async dispatch => {
 
 export const registerUser = (firstName, lastName, email, password) => async dispatch => {
 
-    try{
+    try {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -98,17 +95,24 @@ export const registerUser = (firstName, lastName, email, password) => async disp
         const body = JSON.stringify({firstName, lastName, email, password})
         const response = await axios.post(SERVER_PATH + '/api/users/register', body, config);
 
+        if (response.data !== undefined) {
+            registeredAlert();
+        }
+
         dispatch({
-            type:REGISTER_SUCCESS,
-            payload:response.data
+            type: REGISTER_SUCCESS,
+            payload: response.data
         })
 
-        dispatch(loadUser());
 
-    }catch (e) {
+    } catch (e) {
+
+        if (e) {
+            registerFail();
+        }
 
         dispatch({
-            type:REGISTER_FAIL,
+            type: REGISTER_FAIL,
             payload: e
         })
     }
@@ -116,7 +120,7 @@ export const registerUser = (firstName, lastName, email, password) => async disp
 
 export const registerSM = (firstName, lastName, position, email, password) => async dispatch => {
 
-    try{
+    try {
 
         const config = {
             headers: {
@@ -127,23 +131,26 @@ export const registerSM = (firstName, lastName, position, email, password) => as
         const body = JSON.stringify({firstName, lastName, position, email, password})
         const response = await axios.post(SERVER_PATH + '/api/store_manager/sm_register', body, config);
 
-        dispatch({
-            type:REGISTER_SUCCESS,
-            payload:response.data
-        })
+        if (response.data !== undefined) {
+            registeredSMAlert();
+        }
 
-        dispatch(loadSM());
 
-    }catch (e) {
+    } catch (e) {
+
+        if (e) {
+            registerFail();
+        }
+
         dispatch({
-            type:REGISTER_FAIL,
+            type: REGISTER_FAIL,
             payload: e
         })
     }
 
 }
 
-const invalidLogin = ()=>{
+const invalidLogin = () => {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -151,7 +158,15 @@ const invalidLogin = ()=>{
     })
 }
 
-const loggedAlert = ()=>{
+const registerFail = () => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Registration Error!'
+    })
+}
+
+const loggedAlert = () => {
     Swal.fire({
         position: 'center',
         icon: 'success',
@@ -159,6 +174,26 @@ const loggedAlert = ()=>{
         showConfirmButton: false,
         timer: 3000
     })
+}
+
+const registeredAlert = () => {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'You have successfully registered',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const registeredSMAlert = () => {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'User registered successfully',
+        showConfirmButton: false,
+        timer: 3000
+    });
 }
 
 
@@ -176,7 +211,7 @@ export const loginUser = (email, password) => async dispatch => {
         const body = JSON.stringify({email, password})
         const response1 = await axios.post(SERVER_PATH + '/api/users/login', body, config);
 
-        if(response1.data !== undefined){
+        if (response1.data !== undefined) {
             loggedAlert();
         }
 
@@ -189,7 +224,7 @@ export const loginUser = (email, password) => async dispatch => {
         dispatch(loadUser());
 
     } catch (e) {
-        if(e){
+        if (e) {
             invalidLogin();
         }
 
@@ -204,23 +239,23 @@ export const loginUser = (email, password) => async dispatch => {
 
 export const getPosition = () => async dispatch => {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         setToken(localStorage.getItem('token'));
     }
 
-    try{
+    try {
         const response = await axios.get(SERVER_PATH + '/api/users')
             .then(res => console.log(res.data.position));
         dispatch({
-            type:LOAD_USER,
-            payload:response.data
+            type: LOAD_USER,
+            payload: response.data
 
         })
 
-    }catch (e) {
+    } catch (e) {
 
         dispatch({
-            type:AUTH_ERROR,
+            type: AUTH_ERROR,
             payload: e
         })
     }
@@ -252,13 +287,13 @@ export const loginSM = (email, password) => async dispatch => {
     }
 };
 
-export function addToCart(_id){
+export function addToCart(_id) {
     const request = axios.post(SERVER_PATH + `/api/cart/addToCart?productId=${_id}`)
         .then(response => response.data);
 
-    return{
+    return {
         type: ADD_TO_CART_USER,
-        playload:request
+        playload: request
     }
 }
 
@@ -323,7 +358,7 @@ export function auth() {
 
 */
 
-export const logOut = () => async dispatch =>{
+export const logOut = () => async dispatch => {
     dispatch({
         type: LOG_OUT,
     });

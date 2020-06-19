@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import {connect} from 'react-redux';
 import {registerSM} from "../../action/auth";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 
 
 const RegisterSM = ({isLoggedIn, registerSM}) => {
@@ -19,16 +17,18 @@ const RegisterSM = ({isLoggedIn, registerSM}) => {
     let {firstName, lastName, position, email, password} = data;
 
     const onChange = e => {
-        setData({...data,[e.target.name]: e.target.value})
-        console.log("setdata: "+ e.target.name);
+        setData({...data, [e.target.name]: e.target.value})
+        console.log("setdata: " + e.target.name);
     }
 
-    const submitData = () => {
+    const submitData = (event) => {
 
-        if(firstName === '' || lastName === '' || position === '' || email === '' || password ==='') {
+        event.preventDefault();
+
+        if (firstName === '' || lastName === '' || position === '' || email === '' || password === '') {
             return alert("All the Values are Required");
-        }else{
-            registerSM(firstName,lastName,position,email,password);
+        } else {
+            registerSM(firstName, lastName, position, email, password);
             setData({
                 firstName: '',
                 lastName: '',
@@ -54,64 +54,65 @@ const RegisterSM = ({isLoggedIn, registerSM}) => {
                     <div className="form-parent">
 
                         <div className="register_form">
-                            <div className="form-group">
-                                <label htmlFor="exampleInputFirstName">First Name</label>
-                                <input type="text"
-                                       className="form-control"
-                                       id="exampleInputFirstName"
-                                       onChange={(e) => onChange(e)}
-                                       value={firstName}
-                                       name="firstName"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputLastName">Last Name</label>
-                                <input type="text"
-                                       className="form-control"
-                                       id="exampleInputLastName"
-                                       onChange={(e) => onChange(e)}
-                                       value={lastName}
-                                       name="lastName"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputLastName">Position</label>
-                                <Select
-                                    className="form-control"
-                                    name="position"
-                                    labelId="demo-simple-select-label"
-                                    id="exampleInputPosition"
-                                    value={position}
-                                    onChange={(e) => onChange(e)}
-                                >
-                                    <MenuItem value={'sm'}>Store&nbsp;Manager</MenuItem>
-                                    <MenuItem value={'admin'}>Administrator</MenuItem>
+                            <form onSubmit={(event) => submitData(event)}>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputFirstName">First Name</label>
+                                    <input type="text"
+                                           className="form-control"
+                                           id="exampleInputFirstName"
+                                           onChange={(e) => onChange(e)}
+                                           value={firstName}
+                                           name="firstName" required/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputLastName">Last Name</label>
+                                    <input type="text"
+                                           className="form-control"
+                                           id="exampleInputLastName"
+                                           onChange={(e) => onChange(e)}
+                                           value={lastName}
+                                           name="lastName" required/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputLastName">Position</label>
+                                    <select
+                                        className="form-control"
+                                        name="position"
+                                        id="exampleInputPosition"
+                                        value={position}
+                                        onChange={(e) => onChange(e)}
+                                        required>
+                                        <option value="" selected disabled>Select&nbsp;Position</option>
+                                        <option value={'sm'}>Store&nbsp;Manager</option>
+                                        <option value={'admin'}>Administrator</option>
 
-                                </Select>
+                                    </select>
 
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email"
-                                       className="form-control"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       onChange={(e) => onChange(e)}
-                                       value={email}
-                                       name="email"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password"
-                                       className="form-control"
-                                       id="exampleInputPassword1"
-                                       onChange={(e) => onChange(e)}
-                                       value={password}
-                                       name="password"/>
-                            </div>
-                            <br/>
-                            <button type="submit"
-                                    className="btn btn-primary"
-                                    onClick={() => submitData()}>Submit
-                            </button>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Email address</label>
+                                    <input type="email"
+                                           className="form-control"
+                                           id="exampleInputEmail1"
+                                           aria-describedby="emailHelp"
+                                           onChange={(e) => onChange(e)}
+                                           value={email}
+                                           name="email" required/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputPassword1">Password</label>
+                                    <input type="password"
+                                           className="form-control"
+                                           id="exampleInputPassword1"
+                                           onChange={(e) => onChange(e)}
+                                           value={password}
+                                           name="password" required/>
+                                </div>
+                                <br/>
+                                <button type="submit"
+                                        className="btn btn-primary">Submit
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
